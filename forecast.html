@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Australia & the AI Economy — 2027–2030 Forecast</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;500;600;700&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -18,8 +19,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 5rem 4rem;gap:4rem;background:var(--bg);position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;top:-20%;right:-10%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(184,92,44,0.07) 0%,transparent 70%);pointer-events:none;}
 .hero-tag{display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);border:1.5px solid var(--accent);padding:0.3rem 0.8rem;border-radius:2px;margin-bottom:1.75rem;}
-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,4.5vw,4.2rem);font-weight:700;line-height:1.1;color:var(--ink);margin-bottom:1.5rem;}
-h1 em{font-style:italic;color:var(--accent)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,4.5vw,4.2rem);font-weight:700;line-height:1.1;color:var(--ink);margin-bottom:1.5rem;}
+.hero h1 em{font-style:italic;color:var(--accent)}
 .hero-sub{font-size:1rem;color:var(--muted);max-width:480px;margin-bottom:2.5rem;line-height:1.8;}
 .hero-cta{display:inline-block;background:var(--accent);color:#fff;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.75rem 2rem;border-radius:3px;text-decoration:none;transition:all 0.2s;}
 .hero-cta:hover{background:var(--ink);transform:translateY(-1px)}
@@ -43,8 +44,15 @@ p{margin-bottom:1rem;color:var(--ink2)}
 .mech-card h4{font-size:0.9rem;font-weight:700;color:var(--ink);margin-bottom:0.5rem;}
 .mech-card p{font-size:0.82rem;color:var(--muted);margin:0}
 .chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:2rem;margin:2rem 0;box-shadow:0 2px 16px var(--shadow);}
+.chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
 .chart-title{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
 .chart-source{font-size:0.65rem;color:var(--border);margin-top:0.25rem;font-style:italic}
+.btn-group{display:flex;gap:0.5rem;flex-wrap:wrap}
+.btn{font-size:0.72rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:0.35rem 0.85rem;border-radius:3px;border:1.5px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.15s;font-family:'Syne',sans-serif;}
+.btn:hover,.btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.blue:hover,.btn.blue.active{background:var(--accent2);border-color:var(--accent2)}
+.btn.green:hover,.btn.green.active{background:var(--green);border-color:var(--green)}
+.btn.red:hover,.btn.red.active{background:var(--red);border-color:var(--red)}
 .bar-chart{margin:1rem 0}
 .bar-row{margin-bottom:1rem}
 .bar-label{display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.35rem}
@@ -52,6 +60,7 @@ p{margin-bottom:1rem;color:var(--ink2)}
 .bar-label span:last-child{color:var(--accent);font-weight:700}
 .bar-track{background:var(--bg2);border-radius:3px;height:8px;overflow:hidden}
 .bar-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(0.4,0,0.2,1)}
+footer{text-align:center;padding:2.5rem;border-top:1px solid var(--border);font-size:0.75rem;color:var(--muted);background:var(--bg2);}
 @media(max-width:768px){.hero{grid-template-columns:1fr;padding:5rem 1.5rem 3rem}.hero-right{display:none}nav{padding:0 1.25rem}.nav-links a{font-size:0.65rem;padding:0.3rem 0.5rem}section{padding:3rem 1.25rem}}
 </style>
 </head>
@@ -59,12 +68,7 @@ p{margin-bottom:1rem;color:var(--ink2)}
 <nav>
   <span class="nav-logo">Australia & AI · 2030</span>
   <div class="nav-links">
-    <a href="#thesis">Thesis</a>
-    <a href="#channels">Channels</a>
-    <a href="#scenarios">Scenarios</a>
-    <a href="#policy">Policy</a>
-    <a href="#uncertainty">Uncertainty</a>
-    <a href="#methods">Methods</a>
+    <a href="#thesis">Thesis</a><a href="#channels">Channels</a><a href="#scenarios">Scenarios</a><a href="#policy">Policy</a><a href="#uncertainty">Uncertainty</a><a href="#methods">Methods</a>
   </div>
 </nav>
 
@@ -72,7 +76,7 @@ p{margin-bottom:1rem;color:var(--ink2)}
   <div class="hero-left">
     <span class="hero-tag">ECON1626 · AI Future Forecast · Australia · 2027–2030</span>
     <h1>Australia stands to gain <em>$142 billion</em> — but only if policy keeps pace with AI.</h1>
-    <p class="hero-sub">Artificial intelligence is already reshaping Australia's labour market, productivity trajectory, and industrial structure. This forecast argues that by 2030, AI could add up to $142 billion annually to Australia's GDP — but the distribution of those gains, and the fate of up to 1.3 million workers facing role transitions, hinges critically on the speed and quality of government and industry response. These projections carry genuine uncertainty: capability timelines, firm adoption rates, and structural labour market shifts are all difficult to pin down. This essay surfaces those gaps explicitly throughout.</p>
+    <p class="hero-sub">The numbers around AI and Australia's economy are striking — up to $142 billion in annual GDP gains by 2030, according to the Business Council of Australia. But headline figures can be misleading. Who captures those gains, and what happens to the 1.3 million workers likely facing significant role changes, depends almost entirely on policy choices made between now and 2028. This essay maps those choices — and is honest about what we don't know yet.</p>
     <a href="#channels" class="hero-cta">Read the forecast ↓</a>
   </div>
   <div class="hero-right">
@@ -85,21 +89,44 @@ p{margin-bottom:1rem;color:var(--ink2)}
 <section id="channels">
   <div class="section-tag">02 — Capabilities → Economic Channels</div>
   <h2>How AI translates into economic outcomes</h2>
-  <p class="lead">AI capabilities — from large language models to robotic process automation — connect to macroeconomic outcomes through four primary channels. Each mechanism carries both opportunity and disruption depending on how firms and policymakers respond.</p>
+  <p class="lead">AI doesn't affect the economy through one clean channel — it works through several at once, pulling in different directions. Understanding which dominates, and for whom, is the starting point for any credible forecast.</p>
   <div class="mech-grid">
-    <div class="mech-card"><div class="mech-icon">⚡</div><h4>Productivity augmentation</h4><p>AI tools augment worker output — drafting, analysis, coding, customer service — lifting output per hour without necessarily reducing headcount. McKinsey estimates 0.2–4.1% annual productivity gains are achievable.</p></div>
-    <div class="mech-card"><div class="mech-icon">🔄</div><h4>Task automation & displacement</h4><p>Routine cognitive tasks — data entry, document processing, basic legal drafting — face high substitution risk. Jobs and Skills Australia finds automation potential is concentrated in structured, predictable roles.</p></div>
-    <div class="mech-card"><div class="mech-icon">🏭</div><h4>Industry restructuring</h4><p>AI enables new business models and lowers entry barriers in knowledge-intensive industries. Healthcare, education, and professional services face structural change, not just efficiency gains.</p></div>
-    <div class="mech-card"><div class="mech-icon">📊</div><h4>Distribution of gains</h4><p>Without intervention, productivity gains may concentrate among high-skill workers and capital owners. Australia's AI Opportunities Report projects women could see 35% higher wage growth due to their representation in AI-boosted sectors.</p></div>
+    <div class="mech-card"><div class="mech-icon">⚡</div><h4>Productivity augmentation</h4><p>In many knowledge-intensive roles, AI acts more like a capable assistant than a replacement — speeding up drafting, analysis, and customer interactions. McKinsey puts the productivity gain range at 0.2–4.1% annually, a wide band reflecting genuine uncertainty about adoption pace.</p></div>
+    <div class="mech-card"><div class="mech-icon">🔄</div><h4>Task automation & displacement</h4><p>Not all workers will be augmented. Roles built around repetitive cognitive tasks — data entry, document processing, routine legal work — face real substitution risk. Jobs and Skills Australia finds this risk is concentrated in structured, predictable roles rather than spread evenly.</p></div>
+    <div class="mech-card"><div class="mech-icon">🏭</div><h4>Industry restructuring</h4><p>Beyond individual jobs, AI is reshaping how entire industries are organised. In healthcare, education, and professional services, the shift isn't just about doing existing work faster — it's about what gets done at all, and by whom.</p></div>
+    <div class="mech-card"><div class="mech-icon">📊</div><h4>Distribution of gains</h4><p>Left unmanaged, productivity gains tend to flow to capital owners and high-skill workers. Interestingly, Australia's AI Opportunities Report suggests women may see 35% higher wage growth — concentrated in sectors where AI augments rather than replaces.</p></div>
   </div>
   <div class="chart-wrap">
     <div class="chart-title">AI Exposure by Australian Industry Sector</div>
     <div class="chart-source">Adapted from Jobs and Skills Australia Gen AI Transition Study; McKinsey 2024</div>
     <div class="bar-chart" id="sectorBars"></div>
   </div>
-  <p>The critical insight is that augmentation — not replacement — dominates in the near term. Jobs and Skills Australia found current generative AI is more likely to enhance workers' efforts than eliminate roles outright, but this balance shifts significantly post-2026 as multimodal and agentic AI systems mature. The inflection point is not a cliff — it is a slope, and Australia's policy response must be calibrated to the gradient.</p>
-  <p style="background:var(--bg2);border-left:3px solid var(--gold);padding:1rem 1.25rem;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--muted)"><strong style="color:var(--ink)">⚠ Uncertainty note:</strong> Sector exposure estimates measure <em>potential</em> exposure, not guaranteed displacement. Actual outcomes depend on firm-level adoption decisions, wage bargaining, and regulatory settings — all of which remain fluid. See the Uncertainty section for a full treatment of model limits.</p>
+  <p>The evidence so far points to an augmentation phase, not a replacement phase — at least for now. Jobs and Skills Australia found current generative AI tools are more likely to make workers more productive than to eliminate their roles. But that calculus shifts after 2026 as more capable agentic systems come online. The window for getting policy right is narrow.</p>
+  <p style="background:var(--bg2);border-left:3px solid var(--gold);padding:1rem 1.25rem;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--muted)"><strong style="color:var(--ink)">⚠ Uncertainty note:</strong> These sector exposure figures come from task-mapping models, not direct firm surveys — so they show <em>potential</em> exposure, not guaranteed outcomes. How firms actually respond, what gets bargained in enterprise agreements, and how regulators move will all shape the real numbers considerably.</p>
 </section>
+
+<section>
+  <div class="section-tag">02b — Productivity Evidence</div>
+  <h2>Productivity trajectory under AI adoption</h2>
+  <p class="lead">Australia's productivity growth has been sluggish for over a decade, averaging below 1.5% annually. AI is one of the few credible mechanisms that could shift that trend — but only if adoption actually happens at scale.</p>
+  <div class="chart-wrap">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Annual Labour Productivity Growth — Australia (%) · 2024–2030</div>
+        <div class="chart-source">Sources: McKinsey GI 2024; Australia's AI Opportunities Report 2025; author projections</div>
+      </div>
+      <div class="btn-group">
+        <button class="btn active" onclick="toggleProd('all',this)">All</button>
+        <button class="btn blue" onclick="toggleProd(0,this)">Baseline</button>
+        <button class="btn green" onclick="toggleProd(1,this)">Upside</button>
+        <button class="btn red" onclick="toggleProd(2,this)">Downside</button>
+      </div>
+    </div>
+    <canvas id="prodChart" height="280"></canvas>
+  </div>
+</section>
+
+<footer>ECON1626 · AI Future Forecast · Australia 2027–2030 · Work in progress</footer>
 
 <script>
 const sectors=[
@@ -114,13 +141,19 @@ const sectors=[
   {label:'Agriculture & Mining',pct:15,color:'#2d7a4f'},
 ];
 const bc=document.getElementById('sectorBars');
-sectors.forEach(s=>{
-  bc.innerHTML+=`<div class="bar-row"><div class="bar-label"><span>${s.label}</span><span>${s.pct}%</span></div><div class="bar-track"><div class="bar-fill" style="width:0%;background:${s.color}" data-w="${s.pct}%"></div></div></div>`;
-});
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.bar-fill').forEach(b=>{b.style.width=b.dataset.w});observer.disconnect();}});
-},{threshold:0.3});
+sectors.forEach(s=>{bc.innerHTML+=`<div class="bar-row"><div class="bar-label"><span>${s.label}</span><span>${s.pct}%</span></div><div class="bar-track"><div class="bar-fill" style="width:0%;background:${s.color}" data-w="${s.pct}%"></div></div></div>`;});
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.bar-fill').forEach(b=>{b.style.width=b.dataset.w});observer.disconnect();}});},{threshold:0.3});
 observer.observe(bc);
+
+const years=['2024','2025','2026','2027','2028','2029','2030'];
+const prodData=[
+  {label:'Baseline — Managed Transition',data:[1.1,1.3,1.5,1.8,1.9,2.0,2.1],color:'#2c6b8a',bg:'rgba(44,107,138,0.08)'},
+  {label:'Upside — Accelerated Prosperity',data:[1.1,1.5,2.0,2.6,3.0,3.2,3.4],color:'#2d7a4f',bg:'rgba(45,122,79,0.08)'},
+  {label:'Downside — Disruption',data:[1.1,0.9,0.7,0.7,0.9,1.1,1.3],color:'#a83232',bg:'rgba(168,50,50,0.08)'},
+];
+const pCtx=document.getElementById('prodChart').getContext('2d');
+const prodChart=new Chart(pCtx,{type:'line',data:{labels:years,datasets:prodData.map(d=>({label:d.label,data:d.data,borderColor:d.color,backgroundColor:d.bg,tension:0.4,fill:true,pointRadius:5,pointHoverRadius:7,borderWidth:2.5}))},options:{responsive:true,plugins:{legend:{labels:{color:'#7a7268',font:{family:'Syne',size:11}}}},scales:{x:{ticks:{color:'#7a7268',font:{family:'Syne'}},grid:{color:'rgba(0,0,0,0.04)'}},y:{ticks:{color:'#7a7268',font:{family:'Syne'},callback:v=>v+'%'},grid:{color:'rgba(0,0,0,0.04)'},title:{display:true,text:'Annual productivity growth (%)',color:'#aaa',font:{family:'Syne',size:11}}}}}});
+function toggleProd(idx,btn){document.querySelectorAll('.btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(idx==='all'){prodChart.data.datasets.forEach(d=>d.hidden=false)}else{prodChart.data.datasets.forEach((d,i)=>d.hidden=i!==idx)}prodChart.update();}
 </script>
 </body>
 </html>
