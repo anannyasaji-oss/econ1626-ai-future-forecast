@@ -529,7 +529,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <section>
   <div class="section-tag">03b — Interactive Simulation</div>
   <h2>Build your own scenario</h2>
-  <p class="lead">Use the sliders to build your own scenario and see how the numbers shift.</p>
+  <p class="lead">Use the sliders to explore how different policy and adoption settings shift Australia's projected outcomes.</p>
 
   <div class="chart-wrap">
     <div class="sim-controls">
@@ -551,6 +551,9 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <div class="sim-stat"><div class="sv" id="simProd">+1.9%</div><div class="sl">Productivity growth p.a.</div></div>
       <div class="sim-stat"><div class="sv" id="simJobs">820K</div><div class="sl">Workers needing transition</div></div>
     </div>
+    <p id="simInterpret" style="margin-top:1.25rem;font-size:0.88rem;color:var(--muted);border-top:1px solid var(--border);padding-top:1rem">
+      <strong style="color:var(--ink)">What this means:</strong> <span id="simText">With these settings, Australia tracks close to the <strong>baseline scenario</strong> — steady gains, but significant worker transitions still unsupported. Try raising reskilling investment and regulatory clarity to move toward the upside.</span>
+    </p>
   </div>
 </section>
 
@@ -838,6 +841,14 @@ function updateSim(){
   document.getElementById('simGDP').textContent='$'+Math.min(142,Math.max(30,gdp))+'B';
   document.getElementById('simProd').textContent='+'+Math.min(3.5,Math.max(0.5,prod))+'%';
   document.getElementById('simJobs').textContent=Math.min(1300,Math.max(400,jobs)).toLocaleString()+'K';
+
+  // Interpretation
+  const gdpFinal=Math.min(142,Math.max(30,gdp));
+  let interp='';
+  if(gdpFinal>=120){interp='These settings put Australia firmly in the <strong>upside scenario</strong> — strong adoption, well-supported transitions, and broad sharing of productivity gains. This requires sustained political commitment and front-loaded investment.';}
+  else if(gdpFinal>=75){interp='With these settings, Australia tracks close to the <strong>baseline scenario</strong> — steady gains, but significant worker transitions still unsupported. Try raising reskilling investment and regulatory clarity to move toward the upside.';}
+  else{interp='These settings point toward the <strong>downside scenario</strong> — gains are real but narrowly captured, and displacement outpaces support. Low adoption, weak regulation, or fast global AI acceleration all push in this direction.';}
+  document.getElementById('simText').innerHTML=interp;
 }
 updateSim();
 
