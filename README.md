@@ -62,22 +62,4 @@ If you want the full repo:
 
 ---
 
-## Commit history
-
-| Commit | What was added |
-|---|---|
-| 1 | Initial HTML shell and navigation bar |
-| 2 | Hero section and thesis statement |
-| 3 | Economic channels section and animated sector exposure chart |
-| 4 | Productivity chart with interactive scenario toggles |
-| 5 | Three scenario panels with KPIs and mini charts |
-| 6 | Interactive simulation sliders |
-| 7 | Policy playbook with named agency leads, KPIs and trade-offs |
-| 8 | Uncertainty section with risk ratings and model limitations |
-| 9 | Methods table with AI tooling disclosure and full references |
-| 10 | Final polish — removed reader guide strip, cleaned up footer |
-| 11 | Added project README with reproducibility instructions |
-
----
-
 *ECON1626 · RMIT University · Submitted via GitHub Pages*
